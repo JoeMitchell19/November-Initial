@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class AccountEntity {
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
 	private long id;
 	@Column (length = 20)
 	private String firstName;
@@ -16,6 +16,31 @@ public class AccountEntity {
 	private String LastName;
 	@Column (length = 20)
 	private long accountNumber;
+
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return LastName;
+	}
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
+	public long getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 	
 
 }
