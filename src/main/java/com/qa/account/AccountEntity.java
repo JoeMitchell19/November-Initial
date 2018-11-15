@@ -2,8 +2,7 @@ package com.qa.account;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 
 @Entity
@@ -33,13 +32,21 @@ public class AccountEntity {
 		return LastName;
 	}
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.LastName = lastName;
 	}
 	public long getAccountNumber() {
 		return accountNumber;
 	}
 	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+	public void updateAll(AccountEntity account) {
+		this.id = account.getId();
+		this.firstName = account.getFirstName();
+		this.LastName = account.getLastName();
+		this.accountNumber = account.getAccountNumber();
+		
+		
 	}
 	
 
