@@ -16,6 +16,10 @@ public class AccountEntity {
 	@Column (length = 20)
 	private long accountNumber;
 
+	public AccountEntity() {
+		
+	}
+	
 	public long getId() {
 		return id;
 	}

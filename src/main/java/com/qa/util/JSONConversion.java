@@ -14,5 +14,4 @@ public class JSONConversion {
 	public static <T> T getObjectForJSON(String jsonString, Class<T> clas){
 		return gson.fromJson(jsonString, clas);
 	}
-
 }

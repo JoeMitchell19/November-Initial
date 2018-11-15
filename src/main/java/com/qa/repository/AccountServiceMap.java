@@ -55,4 +55,11 @@ public class AccountServiceMap implements AccountService {
 		ae.setAccountNumber(1);
 	}
 
+	@Override
+	public String findSpecificAccount(AccountEntity account) {
+		long searchedId = account.getId();
+		hmap.put(searchedId, account);
+		return JSONConversion.getJSONFromObject(hmap.put(searchedId, account));
+	}
+
 }

@@ -21,6 +21,11 @@ public class AccountInterfaceImp implements AccountInterface{
 	public String deleteAccount(AccountEntity account) {
 		return repo.deleteAccount(account);
 	}
+	@Override
+	public String findSpecificAccount(AccountEntity account) {
+		return repo.findSpecificAccount(account);
+	}
+	
 
 
 }

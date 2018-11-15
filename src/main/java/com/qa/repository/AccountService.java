@@ -7,5 +7,6 @@ public interface AccountService {
 	String createAccount(AccountEntity account);
 	String updateAccount(AccountEntity account);
 	String deleteAccount(AccountEntity account);
+	String findSpecificAccount(AccountEntity account);
 
 }

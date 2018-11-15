@@ -25,7 +25,8 @@ public class AccountServiceFunctionality implements AccountService {
 		TypedQuery<AccountEntity> query = em.createQuery("SELECT * FROM AccountEntity a ORDER BY a.id desc",AccountEntity.class);
 		return JSONConversion.getJSONFromObject(query.getResultList());
 	}
-	public String findSpecificAccount(long searchedId){
+	public String findSpecificAccount(AccountEntity account){
+		long searchedId = account.getId();
 		TypedQuery<AccountEntity> query = em.createQuery("SELECT * FROM AccountEntity a WHERE a.id = " +searchedId,AccountEntity.class);
 		return JSONConversion.getJSONFromObject(query.getResultList());
 	}
@@ -54,5 +55,6 @@ public class AccountServiceFunctionality implements AccountService {
 		em.contains(account);
 		return "{\"message\": \"Account has been deleted successfully\"}"; 
 	}
+	
 
 }
