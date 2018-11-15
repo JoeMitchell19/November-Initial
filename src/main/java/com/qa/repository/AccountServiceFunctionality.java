@@ -1,8 +1,7 @@
 package com.qa.repository;
 
-import java.util.List;
 
-
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -11,38 +10,49 @@ import static javax.transaction.Transactional.TxType.SUPPORTS;
 import static javax.transaction.Transactional.TxType.REQUIRED;
 
 import com.qa.account.AccountEntity;
+import com.qa.util.JSONConversion;
 
+
+
+@Default
 @Transactional(SUPPORTS)
-public class AccountServiceFunctionality {
+public class AccountServiceFunctionality implements AccountService {
 	@PersistenceContext(unitName = "Primary")
 	private EntityManager em;
 	
-	public List<AccountEntity> findAllAccounts(){
+	
+	public String findAllAccounts(){
 		TypedQuery<AccountEntity> query = em.createQuery("SELECT * FROM AccountEntity a ORDER BY a.id desc",AccountEntity.class);
-		return query.getResultList();
+		return JSONConversion.getJSONFromObject(query.getResultList());
 	}
-	public List<AccountEntity> findSpecificAccount(long searchedId){
+	public String findSpecificAccount(long searchedId){
 		TypedQuery<AccountEntity> query = em.createQuery("SELECT * FROM AccountEntity a WHERE a.id = " +searchedId,AccountEntity.class);
-		return query.getResultList();
+		return JSONConversion.getJSONFromObject(query.getResultList());
 	}
 	
 	@Transactional(REQUIRED)
-	public AccountEntity createAccount(AccountEntity account) {
+	public String createAccount(AccountEntity account) {
 		em.persist(account);
-		return account;
+		if(account.getAccountNumber() == 9999) {
+			return "{\"message\": \"This Account is Blocked\"}";
+		}
+		else {
+		return "{\"message\": \"new Account created successfully\"}";
+	}
 	}
 	@Transactional(REQUIRED)
-	public AccountEntity updateAccount(AccountEntity account) {
+	public String updateAccount(AccountEntity account) {
 		long id = account.getId();
 		AccountEntity updatedAccount = em.find(AccountEntity.class,id);
 		updatedAccount.updateAll(account);
 		em.merge(updatedAccount);
-		return updatedAccount;
+		return "{\"message\": \"Account has been updated successfully\"}";
 	}
 	@Transactional(REQUIRED)
-	public boolean deleteAccount(AccountEntity account) {
+	public String deleteAccount(AccountEntity account) {
 		em.remove(account);
-		return em.contains(account);
+		em.contains(account);
+		return "{\"message\": \"Account has been deleted successfully\"}"; 
 	}
 
 }
